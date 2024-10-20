@@ -68,7 +68,8 @@ class StanfordDogsDataset(Dataset):
 
         img = transforms.CenterCrop(self.crop_size)(img)
 
-
+        img = img / 255.0 
+        
         if self.transform:
             img = self.transform(img)
 
@@ -159,7 +160,7 @@ def create_datasets(root_dir, split=0.2, train_val_split=0.2, transform=None):
 
     return train_dataset, val_dataset, test_dataset
 
-def denormalize(tensor, mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5)):
+def denormalize(tensor, mean=(0.4761392,  0.45182742, 0.39101657), std=(0.23364353, 0.2289059,  0.22732813)):
     """Denormalize a tensor image with mean and standard deviation.
     
     Args:

@@ -121,8 +121,8 @@ def main(config):
                                                             train_val_split=0.2,
                                                             transform=transforms.Compose([
                                                                 transforms.ToTensor(),  # Convert PIL image to Tensor
-                                                                transforms.Normalize((0.5, 0.5, 0.5),
-                                                                                     (0.5, 0.5, 0.5))  # Normalize pixel values to [-1, 1]
+                                                                transforms.Normalize((0.4761392,  0.45182742, 0.39101657),
+                                                                                     (0.23364353, 0.2289059,  0.22732813))  # Normalize pixel values to [-1, 1]
                                                             ]))
 
     train_loader = DataLoader(train_dataset, batch_size=config['batch_size'], shuffle=True)
@@ -163,19 +163,7 @@ def main(config):
 
 def train(train_loader, generator, discriminator, content_loss_criterion, adversarial_loss_criterion,
           optimizer_g, optimizer_d, epoch, config):
-    """
-    One epoch's training.
-
-    :param train_loader: train dataloader
-    :param generator: generator
-    :param discriminator: discriminator
-    :param truncated_vgg19: truncated VGG19 network
-    :param content_loss_criterion: content loss function (Mean Squared-Error loss)
-    :param adversarial_loss_criterion: adversarial loss function (Binary Cross-Entropy loss)
-    :param optimizer_g: optimizer for the generator
-    :param optimizer_d: optimizer for the discriminator
-    :param epoch: epoch number
-    """
+    
     # Set to train mode
     generator.train()
     discriminator.train()  # training mode enables batch normalization

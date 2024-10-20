@@ -43,9 +43,9 @@ def validate(generator, dataloader, device):
             sr_img_psnr = sr_imgs.cpu().detach().numpy()
             hr_img_psnr = hr_imgs.cpu().detach().numpy()
 
-            hr_img_denorm = denormalize(hr_imgs[0])
-            sr_img_denorm = denormalize(sr_imgs[0])
-            lr_img_denorm = denormalize(lr_imgs[0])
+            hr_img_denorm = hr_imgs[0]
+            sr_img_denorm = sr_imgs[0]
+            lr_img_denorm = lr_imgs[0]
 
             hr_img_pil = TF.to_pil_image(hr_img_denorm.cpu())
             sr_img_pil = TF.to_pil_image(sr_img_denorm.cpu())

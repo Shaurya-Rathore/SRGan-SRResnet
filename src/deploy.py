@@ -19,9 +19,9 @@ def validate(generator, dataloader, device, save_dir):
             sr_imgs = generator(lr_imgs)
 
             # Denormalize images for proper visualization
-            hr_img_denorm = denormalize(hr_imgs[0])
-            sr_img_denorm = denormalize(sr_imgs[0])
-            lr_img_denorm = denormalize(lr_imgs[0])
+            hr_img_denorm = hr_imgs[0]
+            sr_img_denorm = sr_imgs[0]
+            lr_img_denorm = lr_imgs[0]
 
             # Convert tensors to PIL images
             hr_img_pil = TF.to_pil_image(hr_img_denorm.cpu())

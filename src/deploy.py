@@ -84,7 +84,7 @@ def predict(root_dir, save_dir='output_images'):
     config = get_config(args)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    checkpoint = torch.load('checkpoint_srgan.pth.tar')
+    checkpoint = torch.load('/home/aravind/Downloads/checkpoint_srgan.pth.tar')
 
     generator = Generator(
         large_kernel_size=config['large_kernel_size_g'],

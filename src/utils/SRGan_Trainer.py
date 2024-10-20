@@ -16,7 +16,7 @@ import wandb
 wandb.init(project='SRGan', entity='shaurya24')
 
 # Learning parameters
-checkpoint = '/kaggle/working/'  # path to model (SRGAN) checkpoint, None if none
+checkpoint = None # path to model (SRGAN) checkpoint, None if none
 start_epoch = 0  # start at this epoch
 grad_clip = None 
 
@@ -51,8 +51,8 @@ def validate(generator, dataloader, device):
                    
             sr_img_psnr = sr_imgs[0].cpu().detach().numpy()
             hr_img_psnr = hr_imgs[0].cpu().detach().numpy()
-            cv2.imwrite('/kaggle/working/', sr_img_psnr)
-            cv2.imwrite('/kaggle/working/', hr_img_psnr)
+            cv2.imwrite('/kaggle/working/', sr_img_np)
+            cv2.imwrite('/kaggle/working/', hr_img_np)
             print(cv2.PSNR(hr_img_psnr, sr_img_psnr))
                     # Plot images
 

@@ -13,6 +13,7 @@ import argparse
 import numpy as np
 import cv2
 import wandb
+import os
 
 wandb.init(project='SRResNet', entity='shaurya24')
 
@@ -43,9 +44,9 @@ def validate(model, dataloader, device):
             sr_img_psnr = sr_imgs.cpu().detach().numpy()
             hr_img_psnr = hr_imgs.cpu().detach().numpy()
 
-            hr_img_denorm = denormalize(hr_imgs[0])
-            sr_img_denorm = denormalize(sr_imgs[0])
-            lr_img_denorm = denormalize(lr_imgs[0])
+            hr_img_denorm = hr_imgs[0]
+            sr_img_denorm = sr_imgs[0]
+            lr_img_denorm = lr_imgs[0]
 
             hr_img_np = TF.to_pil_image(hr_img_denorm.cpu())
             sr_img_np = TF.to_pil_image(sr_img_denorm.cpu())
@@ -53,6 +54,12 @@ def validate(model, dataloader, device):
                    
             sr_img_psnr = sr_imgs[0].cpu().detach().numpy()
             hr_img_psnr = hr_imgs[0].cpu().detach().numpy()
+            
+            unique_index = i
+            img_dir = '/kaggle/working/'
+            cv2.imwrite(os.path.join(img_dir, f'output_image_{unique_index}.png'), sr_img_np)
+            cv2.imwrite(os.path.join(img_dir, f'input_image_{unique_index}.png'),hr_img_np)
+            
             print(cv2.PSNR(hr_img_psnr, sr_img_psnr))
                     # Plot images
 
@@ -106,12 +113,7 @@ def main(config):
     train_dataset, val_dataset, test_dataset = create_datasets(root_dir="/kaggle/input/stanford-dogs-dataset/images/Images",
                                                                 split=0.2,
                                                             train_val_split=0.2,
-                                                            transform=transforms.Compose([
-                                                                transforms.ToTensor(),  # Convert PIL image to Tensor
-                                                                transforms.Lambda(lambda img: img / 255.0),
-                                                                transforms.Normalize((0.4761392,  0.45182742, 0.39101657),
-                                                                                     (0.23364353, 0.2289059,  0.22732813))  # Normalize pixel values to [-1, 1]
-                                                            ]))
+                                                            transform=None)
 
     train_loader = DataLoader(train_dataset, batch_size=config['batch_size'], shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=2, shuffle=True)

@@ -99,11 +99,7 @@ def predict(root_dir, save_dir='output_images'):
         root_dir=root_dir,
         split=0.2,
         train_val_split=0.2,
-        transform=transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Lambda(lambda img: img / 255.0),
-        ])
-    )
+        transform=None )
 
     test_loader = DataLoader(test_dataset, batch_size=1, shuffle=True)
     validate(generator, test_loader, device, save_dir)

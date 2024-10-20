@@ -60,12 +60,9 @@ if __name__ == '__main__':
     train_dataset, val_dataset, test_dataset = create_datasets(root_dir="/kaggle/input/stanford-dogs-dataset/images/Images",
                                                                 split=0.2,
                                                             train_val_split=0.2,
-                                                            transform=transforms.Compose([
-                                                                transforms.ToTensor(),  # Convert PIL image to Tensor
-                                                                transforms.Lambda(lambda img: img / 255.0),
+                                                            transform=None
   # Normalize pixel values to [-1, 1]
-                                                            ]))
-    
+                                                            )
     test_loader = DataLoader(test_dataset, batch_size = 1, shuffle= True)
     
     validate(generator, test_loader, device)

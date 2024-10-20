@@ -9,7 +9,7 @@ class ConvolutionalBlock(nn.Module):
     A convolutional block, comprising convolutional, BN, activation layers.
     """
 
-    def __init__(self, in_channels, out_channels, kernel_size, stride=1, batch_norm=False, activation=None):
+    def __init__(self, in_channels, out_channels, kernel_size, stride=1, batch_norm=True, activation=None):
         """
         :param in_channels: number of input channels
         :param out_channels: number of output channe;s

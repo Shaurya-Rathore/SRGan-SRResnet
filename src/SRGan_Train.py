@@ -34,7 +34,7 @@ if __name__ == '__main__':
     parser.add_argument('--n_channels_d', type=int,required=False, default=32)
     parser.add_argument('--batch_size', type=int,required=False, default=16)
     parser.add_argument('--iterations', type=int,required=False, default=2e5)
-    parser.add_argument('--beta', type=int,required=False, default=1e-3)
+    parser.add_argument('--beta', type=int,required=False, default=1e-4)
     parser.add_argument('--lr', type=float,required=False, default=1e-4)
     arguments = parser.parse_args()
     config = get_config(arguments)

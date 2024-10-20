@@ -63,8 +63,7 @@ if __name__ == '__main__':
                                                             transform=transforms.Compose([
                                                                 transforms.ToTensor(),  # Convert PIL image to Tensor
                                                                 transforms.Lambda(lambda img: img / 255.0),
-                                                                transforms.Normalize((0.4761392,  0.45182742, 0.39101657),
-                                                                                     (0.23364353, 0.2289059,  0.22732813))  # Normalize pixel values to [-1, 1]
+  # Normalize pixel values to [-1, 1]
                                                             ]))
     
     test_loader = DataLoader(test_dataset, batch_size = 1, shuffle= True)

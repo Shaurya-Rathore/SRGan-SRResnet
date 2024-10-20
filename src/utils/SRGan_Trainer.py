@@ -16,7 +16,7 @@ import wandb
 wandb.init(project='SRGan', entity='shaurya24')
 
 # Learning parameters
-checkpoint = None  # path to model (SRGAN) checkpoint, None if none
+checkpoint = '/kaggle/working/'  # path to model (SRGAN) checkpoint, None if none
 start_epoch = 0  # start at this epoch
 grad_clip = None 
 
@@ -51,6 +51,8 @@ def validate(generator, dataloader, device):
                    
             sr_img_psnr = sr_imgs[0].cpu().detach().numpy()
             hr_img_psnr = hr_imgs[0].cpu().detach().numpy()
+            cv2.imwrite('/kaggle/working/', sr_img_psnr)
+            cv2.imwrite('/kaggle/working/', hr_img_psnr)
             print(cv2.PSNR(hr_img_psnr, sr_img_psnr))
                     # Plot images
 
@@ -122,8 +124,7 @@ def main(config):
                                                             transform=transforms.Compose([
                                                                 transforms.ToTensor(),  # Convert PIL image to Tensor
                                                                 transforms.Lambda(lambda img: img / 255.0),
-                                                                transforms.Normalize((0.4761392,  0.45182742, 0.39101657),
-                                                                                     (0.23364353, 0.2289059,  0.22732813))  # Normalize pixel values to [-1, 1]
+                                                                  # Normalize pixel values to [-1, 1]
                                                             ]))
 
     train_loader = DataLoader(train_dataset, batch_size=config['batch_size'], shuffle=True)

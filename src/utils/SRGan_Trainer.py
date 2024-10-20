@@ -12,6 +12,7 @@ import torchvision.transforms.functional as TF
 import argparse
 import cv2
 import wandb
+import os
 
 wandb.init(project='SRGan', entity='shaurya24')
 
@@ -51,9 +52,10 @@ def validate(generator, dataloader, device):
                    
             sr_img_psnr = sr_imgs[0].cpu().detach().numpy()
             hr_img_psnr = hr_imgs[0].cpu().detach().numpy()
+            unique_index = i
             img_dir = '/kaggle/working/'
-            cv2.imwrite(img_dir, sr_img_np)
-            cv2.imwrite(img_dir, hr_img_np)
+            cv2.imwrite(os.path.join(img_dir, f'output_image_{unique_index}.png'), sr_img_np)
+            cv2.imwrite(os.path.join(img_dir, f'input_image_{unique_index}.png'),hr_img_np )
             print(cv2.PSNR(hr_img_psnr, sr_img_psnr))
                     # Plot images
 

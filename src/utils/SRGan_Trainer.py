@@ -13,6 +13,7 @@ import argparse
 import cv2
 import wandb
 import os
+import numpy as np
 
 wandb.init(project='SRGan', entity='shaurya24')
 
@@ -46,33 +47,37 @@ def validate(generator, dataloader, device):
             sr_img_denorm = denormalize(sr_imgs[0])
             lr_img_denorm = denormalize(lr_imgs[0])
 
-            hr_img_np = TF.to_pil_image(hr_img_denorm.cpu())
-            sr_img_np = TF.to_pil_image(sr_img_denorm.cpu())
-            lr_img_np = TF.to_pil_image(lr_img_denorm.cpu())   
+            hr_img_pil = TF.to_pil_image(hr_img_denorm.cpu())
+            sr_img_pil = TF.to_pil_image(sr_img_denorm.cpu())
+            lr_img_pil = TF.to_pil_image(lr_img_denorm.cpu())  
+            
+            hr_img_np = np.array(hr_img_pil)
+            sr_img_np = np.array(sr_img_pil)
+            lr_img_np = np.array(lr_img_pil) 
                    
             sr_img_psnr = sr_imgs[0].cpu().detach().numpy()
             hr_img_psnr = hr_imgs[0].cpu().detach().numpy()
             unique_index = i
             img_dir = '/kaggle/working/'
             cv2.imwrite(os.path.join(img_dir, f'output_image_{unique_index}.png'), sr_img_np)
-            cv2.imwrite(os.path.join(img_dir, f'input_image_{unique_index}.png'),hr_img_np )
+            cv2.imwrite(os.path.join(img_dir, f'input_image_{unique_index}.png'),hr_img_np)
             print(cv2.PSNR(hr_img_psnr, sr_img_psnr))
                     # Plot images
 
             plt.figure(figsize=(12, 4))
 
             plt.subplot(1, 3, 1)
-            plt.imshow(hr_img_np)
+            plt.imshow(hr_img_pil)
             plt.title('HR Image')
             plt.axis('off')
 
             plt.subplot(1, 3, 2)
-            plt.imshow(lr_img_np)
+            plt.imshow(lr_img_pil)
             plt.title('LR Image')
             plt.axis('off')
                     
             plt.subplot(1, 3, 3)
-            plt.imshow(sr_img_np)
+            plt.imshow(sr_img_pil)
             plt.title('SR Image')
             plt.axis('off')
 

@@ -108,8 +108,9 @@ def main(config):
                                                             train_val_split=0.2,
                                                             transform=transforms.Compose([
                                                                 transforms.ToTensor(),  # Convert PIL image to Tensor
-                                                                transforms.Normalize((0.5, 0.5, 0.5),
-                                                                                     (0.5, 0.5, 0.5))  # Normalize pixel values to [-1, 1]
+                                                                transforms.Lambda(lambda img: img / 255.0),
+                                                                transforms.Normalize((0.4761392,  0.45182742, 0.39101657),
+                                                                                     (0.23364353, 0.2289059,  0.22732813))  # Normalize pixel values to [-1, 1]
                                                             ]))
 
     train_loader = DataLoader(train_dataset, batch_size=config['batch_size'], shuffle=True)

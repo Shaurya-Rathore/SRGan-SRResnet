@@ -173,4 +173,4 @@ def denormalize(tensor, mean=(0.4761392,  0.45182742, 0.39101657), std=(0.233643
     # Iterate over channels and denormalize out-of-place
     for c in range(tensor.size(0)):
         denormalized_tensor[c] = tensor[c] * std[c] + mean[c]
-    return denormalized_tensor
+    return denormalized_tensor*255

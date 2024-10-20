@@ -67,8 +67,6 @@ class StanfordDogsDataset(Dataset):
         img = Image.open(img_path).convert('RGB')
 
         img = transforms.CenterCrop(self.crop_size)(img)
-
-        img = img / 255.0 
         
         if self.transform:
             img = self.transform(img)

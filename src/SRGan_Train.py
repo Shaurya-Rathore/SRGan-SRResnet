@@ -26,7 +26,7 @@ if __name__ == '__main__':
     parser.add_argument('--scaling_factor', type=int,required=False, default=2)
     parser.add_argument('--large_kernel_size_g', type=int,required=False, default=9)
     parser.add_argument('--small_kernel_size_g', type=int,required=False, default=3)
-    parser.add_argument('--n_blocks_g', type=int,required=False, default=6)
+    parser.add_argument('--n_blocks_g', type=int,required=False, default=12)
     parser.add_argument('--n_channels_g', type=int,required=False, default=32)
     parser.add_argument('--n_blocks_d', type=int,required=False, default=8)
     parser.add_argument('--kernel_size_d', type=int,required=False, default=3)

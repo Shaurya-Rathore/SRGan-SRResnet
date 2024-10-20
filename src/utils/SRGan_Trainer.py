@@ -129,11 +129,7 @@ def main(config):
     train_dataset, val_dataset, test_dataset = create_datasets(root_dir="/kaggle/input/stanford-dogs-dataset/images/Images",
                                                                 split=0.2,
                                                             train_val_split=0.2,
-                                                            transform=transforms.Compose([
-                                                                transforms.ToTensor(),  # Convert PIL image to Tensor
-                                                                transforms.Lambda(lambda img: img / 255.0),
-                                                                  # Normalize pixel values to [-1, 1]
-                                                            ]))
+                                                            transform=None)
 
     train_loader = DataLoader(train_dataset, batch_size=config['batch_size'], shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=2, shuffle=True)
